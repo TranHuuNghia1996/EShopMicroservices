@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  catalogdb:
+    image: postgres:16-alpine
+  basketdb:
+    image: postgres:16-alpine
+
+  distributedcached:
+    image: redis
+   
+
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: src/Services/Basket/Basket.API/Dockerfile
+
+  catolog.api:
+    image: ${DOCKER_REGISTRY-}catologapi
+    build:
+      context: src/Services
+      dockerfile: Catalog/Catolog.API/Dockerfile
+
+volumes:
+  postgres_catalog:
+  postgres_basket:
+
+
